@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_nfc"
+        android:icon="@drawable/cellphone_nfc"
+        android:title="@string/nfc" />
+
+    <item
+        android:id="@+id/nav_chat"
+        android:icon="@drawable/message_text_outline"
+        android:title="@string/chat" />
+
+    <item
+        android:id="@+id/nav_time"
+        android:icon="@drawable/clock_outline"
+        android:title="@string/timer" />
+    <item
+        android:id="@+id/nav_search"
+        android:icon="@drawable/account_search_outline"
+        android:title="@string/search" />
+    <item
+        android:id="@+id/nav_profile"
+        android:icon="@drawable/account_circle_outline"
+        android:title="@string/account" />
+
+</menu>

@@ -14,4 +14,13 @@
     <string name="password">Пароль</string>
     <string name="verify">Код потверждения</string>
     <string name="register">Регистрация</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="nfc">nfc</string>
+    <string name="chat">чат</string>
+    <string name="timer">таймер</string>
+    <string name="search">Поиск</string>
+    <string name="account">профиль</string>
 </resources>
