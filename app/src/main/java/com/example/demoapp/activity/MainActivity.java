@@ -5,17 +5,19 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
 import com.example.demoapp.R;
+import com.example.demoapp.api.ShowFragmentListener;
 import com.example.demoapp.fragments.MailFragment;
 
 import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ShowFragmentListener {
 
     private static final int mail = 1;
     private static final int status = 2;
@@ -78,5 +80,10 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragmentContent, fragment);
         fragmentTransaction.commit();
+    }
+
+    @Override
+    public void showFragment(Fragment fragment) {
+        switchTo(fragment);
     }
 }
