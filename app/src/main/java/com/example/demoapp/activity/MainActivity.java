@@ -12,6 +12,7 @@ import android.view.View;
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
 import com.example.demoapp.R;
 import com.example.demoapp.api.ShowFragmentListener;
+import com.example.demoapp.fragments.FragmentTime;
 import com.example.demoapp.fragments.MailFragment;
 
 import kotlin.Unit;
@@ -55,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements ShowFragmentListe
                         break;
                     case time:
 
-                        switchTo(new MailFragment());
+                        switchTo(new FragmentTime());
                         break;
                     case nfc:
 
@@ -72,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements ShowFragmentListe
 
         //Страница по умолчианию
         meowBottomNavigation.show(time, true);
-        switchTo(new MailFragment());
+        switchTo(new FragmentTime());
     }
 
     private void switchTo(Fragment fragment) {
