@@ -1,6 +1,7 @@
 package com.example.demoapp.fragments;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -15,6 +16,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.demoapp.R;
+import com.example.demoapp.api.ShowFragmentListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.joda.time.DateTime;
 
@@ -23,14 +26,25 @@ public class FragmentTime extends Fragment {
         TextView textView;
         TextView textViewLecture;
         private Handler mHandler;
+        FloatingActionButton floatingActionGoFragmentGift;
+        private ShowFragmentListener showFragmentListener;
 
-        final int[] belltime = {30600, 70200};
+        final int[] belltime = {30600, 46800, 50400, 64800};
+
 
         @SuppressLint("HandlerLeak")
         @Nullable
         @Override
         public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_time, container, false);
+
+            floatingActionGoFragmentGift = rootView.findViewById(R.id.floatingActionGoFragmentGift);
+            floatingActionGoFragmentGift.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showFragmentListener.showFragment(new FragmentGift());
+                }
+            });
 
             textView = rootView.findViewById(R.id.textView);
             textViewLecture = rootView.findViewById(R.id.textViewLecture);
@@ -71,16 +85,16 @@ public class FragmentTime extends Fragment {
             for (int i = 0; i < 4; i++) {
 
                     switch (i){
-                        case 1:
+                        case 0:
                             textViewLecture.setText("До начала \nрабочей смены:");
                             break;
-                        case 2:
+                        case 1:
                             textViewLecture.setText("До начала \nобеда:");
                             break;
-                        case 3:
+                        case 2:
                             textViewLecture.setText("До конца \nобеда:");
                             break;
-                        case 4:
+                        case 3:
                             textViewLecture.setText("До конца \nрабочей смены:");
                             break;
                     }
@@ -92,7 +106,7 @@ public class FragmentTime extends Fragment {
                 }
 
                 if(i == 5){
-                    textViewLecture.setText("Пары закончены");
+                    textViewLecture.setText("Рабочая смена окончена");
                     textView.setVisibility(View.GONE);
                 }else{
                     textView.setVisibility(View.VISIBLE);
@@ -135,5 +149,11 @@ public class FragmentTime extends Fragment {
                 }
             }
         }
-
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if (context instanceof ShowFragmentListener) {
+            showFragmentListener = (ShowFragmentListener) context;
+        }
     }
+}
