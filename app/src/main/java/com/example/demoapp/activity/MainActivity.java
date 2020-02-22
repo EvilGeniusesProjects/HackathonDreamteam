@@ -1,5 +1,9 @@
 package com.example.demoapp.activity;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -8,17 +12,25 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.Intent;
 import android.nfc.NfcAdapter;
 import android.os.Bundle;
+import android.view.View;
 
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
 import com.example.demoapp.R;
 import com.example.demoapp.api.ShowFragmentListener;
+import com.example.demoapp.api.chat.Message;
 import com.example.demoapp.fragments.FragmentTime;
 import com.example.demoapp.fragments.MailFragment;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
 
-public class MainActivity extends AppCompatActivity implements ShowFragmentListener {
+public class MainActivity extends AppCompatActivity implements ShowFragmentListener, MailFragment.OnButtonClickListener, MailFragment.OnAudioUploaded {
 
     private static final int mail = 1;
     private static final int status = 2;
@@ -26,10 +38,19 @@ public class MainActivity extends AppCompatActivity implements ShowFragmentListe
     private static final int nfc = 4;
     private static final int profile = 5;
 
+    private DatabaseReference reference;
+    private String userID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Intent intent = getIntent();
+        if (intent != null) {
+            userID = intent.getStringExtra(LoginActivity.USER_ID);
+        }
+        reference = FirebaseDatabase.getInstance().getReference().child("Chat");
     }
 
     @Override
@@ -47,9 +68,9 @@ public class MainActivity extends AppCompatActivity implements ShowFragmentListe
             public Unit invoke(MeowBottomNavigation.Model model) {
                 switch (model.getId()) {
                     case mail:
+
                         switchTo(new MailFragment());
                         break;
-
                     case status:
 
                         switchTo(new MailFragment());
@@ -71,6 +92,7 @@ public class MainActivity extends AppCompatActivity implements ShowFragmentListe
             }
         });
 
+        //Страница по умолчианию
         meowBottomNavigation.show(time, true);
         switchTo(new FragmentTime());
     }
@@ -86,4 +108,23 @@ public class MainActivity extends AppCompatActivity implements ShowFragmentListe
     public void showFragment(Fragment fragment) {
         switchTo(fragment);
     }
+
+    @Override
+    public void onButtonClick(MailFragment chatFragment) {
+        String text = chatFragment.getText();
+        if (text.trim().length() > 0) {
+            SimpleDateFormat date = new SimpleDateFormat("HH:mm dd/MM/yy", Locale.getDefault());
+            Message m = new Message(text, date.format(new Date()), userID, null);
+            reference.push().setValue(m);
+            chatFragment.setText("");
+        }
+    }
+
+    @Override
+    public void audioAttachComplete(String audio) {
+        SimpleDateFormat date = new SimpleDateFormat("HH:mm dd/MM/yy", Locale.getDefault());
+        Message m = new Message("none", date.format(new Date()), userID, audio);
+        reference.push().setValue(m);
+    }
+
 }
