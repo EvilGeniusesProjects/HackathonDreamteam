@@ -86,21 +86,12 @@ public class FragmentTime extends Fragment {
                     }
 
 
-
-
-
-
-
-
-
-
-
                 if (belltime[i] > currentTime) {
                     belltimeToLecture = belltime[i];
                     break;
                 }
 
-                if(i == 13){
+                if(i == 5){
                     textViewLecture.setText("Пары закончены");
                     textView.setVisibility(View.GONE);
                 }else{
