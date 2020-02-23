@@ -16,8 +16,12 @@ import android.widget.Toast;
 import com.example.demoapp.R;
 import com.example.demoapp.api.ShowFragmentListener;
 import com.example.demoapp.api.chat.Message;
+import com.example.demoapp.fragments.FragmentMail;
+import com.example.demoapp.fragments.FragmentNFC;
+import com.example.demoapp.fragments.FragmentOne;
 import com.example.demoapp.fragments.FragmentProfile;
 import com.example.demoapp.fragments.FragmentTime;
+import com.example.demoapp.fragments.FragmentTwo;
 import com.example.demoapp.fragments.MailFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DatabaseReference;
@@ -83,6 +87,32 @@ public class MainActivity extends AppCompatActivity implements ShowFragmentListe
 
                 showFragment(fragment);
             }
+
+                if(nameString.equals("mail")){
+
+                    Toast.makeText(this, "Подключение к чату", Toast.LENGTH_SHORT).show();
+
+                    FragmentOne fragmentOne = new FragmentOne();
+                    FragmentTwo fragmentTwo = new FragmentTwo();
+
+                    if (!statusWork) {
+                        statusWork = true;
+                        showFragment(fragmentOne);
+                    } else {
+                        statusWork = false;
+                        showFragment(fragmentTwo);
+                    }
+
+
+
+
+
+                }
+
+
+
+
+
         }
     }
 
@@ -95,10 +125,10 @@ public class MainActivity extends AppCompatActivity implements ShowFragmentListe
             switch (item.getItemId()) {
                 case R.id.nav_nfc:
                     nameString = "nfc";
-                    switchTo(new MailFragment());
+                    switchTo(new FragmentNFC());
                     break;
                 case R.id.nav_chat:
-                    switchTo(new MailFragment());
+                    switchTo(new FragmentMail());
                     nameString = "mail";
                     break;
                 case R.id.nav_time:
