@@ -9,12 +9,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.nfc.NfcAdapter;
-import android.os.Bundle;
 import android.widget.Toast;
 
 import com.example.demoapp.R;

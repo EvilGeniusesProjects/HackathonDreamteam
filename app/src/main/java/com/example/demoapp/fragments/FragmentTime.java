@@ -31,7 +31,7 @@ public class FragmentTime extends Fragment {
         private Handler mHandler;
         FloatingActionButton floatingActionGoFragmentGift;
         private ShowFragmentListener showFragmentListener;
-
+        ImageView ImageViewProfile;
         final int[] belltime = {30600, 46800, 50400, 64800};
 
 
@@ -40,6 +40,8 @@ public class FragmentTime extends Fragment {
         @Override
         public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_time, container, false);
+
+            ImageViewProfile = rootView.findViewById(R.id.imageView);
 
 
             ImageView imageViewStatus = rootView.findViewById(R.id.imageViewStatus);
@@ -57,6 +59,12 @@ public class FragmentTime extends Fragment {
 
             }
 
+            ImageViewProfile.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showFragmentListener.showFragment(new FragmentProfile());
+                }
+            });
 
 
 
