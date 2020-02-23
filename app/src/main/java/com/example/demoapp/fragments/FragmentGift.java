@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -25,6 +27,10 @@ public class FragmentGift extends Fragment implements RecyclerViewAdapterGifts.I
     ImageView imageViewBack;
     private ShowFragmentListener showFragmentListener;
     RecyclerViewAdapterGifts adapter;
+    int str = 228;
+    Button button111;
+    TextView textView14;
+
 
     @Nullable
     @Override
@@ -39,25 +45,26 @@ public class FragmentGift extends Fragment implements RecyclerViewAdapterGifts.I
             }
         });
 
-
-
-            ArrayList<String> animalNames = new ArrayList<>();
-            animalNames.add("1 Day");
-            animalNames.add("3 Day");
-            animalNames.add("5 Day");
-            animalNames.add("7 Day");
-            animalNames.add("14 Day");
-            animalNames.add("30 Day");
-
-            // set up the RecyclerView
-            RecyclerView recyclerView = rootView.findViewById(R.id.recyclerView);
-            recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
-            adapter = new RecyclerViewAdapterGifts(getContext(), animalNames);
-            adapter.setClickListener(this);
-            recyclerView.setAdapter(adapter);
+        button111 = rootView.findViewById(R.id.button111);
+        textView14 = rootView.findViewById(R.id.textView14);
 
 
 
+
+
+        button111.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                str = str - 100;
+                textView14.setText("У вас " + str + " ч.");
+                Toast.makeText(getActivity(), "Вам добавлен 1 день для выходного", Toast.LENGTH_SHORT).show();
+                if(str < 100){
+                    button111.setBackgroundResource(R.drawable.button_border_false);
+                    button111.setEnabled(false);
+
+                }
+            }
+        });
 
 
 

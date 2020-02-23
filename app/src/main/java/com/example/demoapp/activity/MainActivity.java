@@ -4,7 +4,6 @@ import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.nfc.NfcAdapter;
-import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,9 +13,14 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.demoapp.R;
 import com.example.demoapp.api.ShowFragmentListener;
+import com.example.demoapp.api.chat.Message;
+import com.example.demoapp.fragments.FragmentMail;
+import com.example.demoapp.fragments.FragmentNFC;
+import com.example.demoapp.fragments.FragmentOne;
 import com.example.demoapp.fragments.FragmentProfile;
 import com.example.demoapp.fragments.FragmentSearch;
 import com.example.demoapp.fragments.FragmentTime;
+import com.example.demoapp.fragments.FragmentTwo;
 import com.example.demoapp.fragments.MailFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DatabaseReference;
@@ -82,6 +86,32 @@ public class MainActivity extends AppCompatActivity implements ShowFragmentListe
 
                 showFragment(fragment);
             }
+
+                if(nameString.equals("mail")){
+
+                    Toast.makeText(this, "Подключение к чату", Toast.LENGTH_SHORT).show();
+
+                    FragmentOne fragmentOne = new FragmentOne();
+                    FragmentTwo fragmentTwo = new FragmentTwo();
+
+                    if (!statusWork) {
+                        statusWork = true;
+                        showFragment(fragmentOne);
+                    } else {
+                        statusWork = false;
+                        showFragment(fragmentTwo);
+                    }
+
+
+
+
+
+                }
+
+
+
+
+
         }
     }
 
@@ -94,7 +124,7 @@ public class MainActivity extends AppCompatActivity implements ShowFragmentListe
             switch (item.getItemId()) {
                 case R.id.nav_nfc:
                     nameString = "nfc";
-                    switchTo(MailFragment.getInstance("chat"));
+                    switchTo(new FragmentNFC());
                     break;
                 case R.id.nav_chat:
                     switchTo(MailFragment.getInstance("chat"));
