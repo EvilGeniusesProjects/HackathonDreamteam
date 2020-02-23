@@ -3,20 +3,13 @@ package com.example.demoapp.activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.example.demoapp.fragments.LoginFragment;
-import com.example.demoapp.fragments.MailFragment;
-import com.example.demoapp.fragments.RegisterFragment;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.view.View;
-
 import com.example.demoapp.R;
+import com.example.demoapp.fragments.LoginFragment;
+import com.example.demoapp.fragments.RegisterFragment;
 
 public class LoginActivity extends AppCompatActivity implements LoginFragment.OnUserLoginListener, RegisterFragment.ChangeToLoginListener, LoginFragment.ChangeToRegisterListener {
 

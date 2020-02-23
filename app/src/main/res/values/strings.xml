@@ -23,4 +23,7 @@
     <string name="timer">таймер</string>
     <string name="search">Поиск</string>
     <string name="account">профиль</string>
+    <string name="onWork">Раб. место</string>
+    <string name="InKitchen">На кухне</string>
+    <string name="InHome">Дома</string>
 </resources>

@@ -1,26 +1,21 @@
 package com.example.demoapp.activity;
 
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.nfc.NfcAdapter;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.SharedPreferences;
-import android.nfc.NfcAdapter;
-import android.os.Bundle;
-import android.widget.Toast;
-
 import com.example.demoapp.R;
 import com.example.demoapp.api.ShowFragmentListener;
-import com.example.demoapp.api.chat.Message;
 import com.example.demoapp.fragments.FragmentProfile;
+import com.example.demoapp.fragments.FragmentSearch;
 import com.example.demoapp.fragments.FragmentTime;
 import com.example.demoapp.fragments.MailFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -31,7 +26,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity implements ShowFragmentListener, MailFragment.OnButtonClickListener, MailFragment.OnAudioUploaded {
+public class MainActivity extends AppCompatActivity implements ShowFragmentListener{
 
     private DatabaseReference reference;
     private String userID;
@@ -99,10 +94,10 @@ public class MainActivity extends AppCompatActivity implements ShowFragmentListe
             switch (item.getItemId()) {
                 case R.id.nav_nfc:
                     nameString = "nfc";
-                    switchTo(new MailFragment());
+                    switchTo(MailFragment.getInstance("chat"));
                     break;
                 case R.id.nav_chat:
-                    switchTo(new MailFragment());
+                    switchTo(MailFragment.getInstance("chat"));
                     nameString = "mail";
                     break;
                 case R.id.nav_time:
@@ -119,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements ShowFragmentListe
                     break;
                 case R.id.nav_search:
                     nameString = "status";
-                    switchTo(new MailFragment());
+                    switchTo(new FragmentSearch());
                     break;
                 case R.id.nav_profile:
                     nameString = "profile";
@@ -144,25 +139,6 @@ public class MainActivity extends AppCompatActivity implements ShowFragmentListe
     public void showFragment(Fragment fragment) {
         switchTo(fragment);
     }
-
-    @Override
-    public void onButtonClick(MailFragment chatFragment) {
-        String text = chatFragment.getText();
-        if (text.trim().length() > 0) {
-            SimpleDateFormat date = new SimpleDateFormat("HH:mm dd/MM/yy", Locale.getDefault());
-            Message m = new Message(text, date.format(new Date()), userID, null);
-            reference.push().setValue(m);
-            chatFragment.setText("");
-        }
-    }
-
-    @Override
-    public void audioAttachComplete(String audio) {
-        SimpleDateFormat date = new SimpleDateFormat("HH:mm dd/MM/yy", Locale.getDefault());
-        Message m = new Message("none", date.format(new Date()), userID, audio);
-        reference.push().setValue(m);
-    }
-
 
     private void readFromIntent(Intent intent) {
         String action = intent.getAction();
