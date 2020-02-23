@@ -10,6 +10,7 @@ import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -25,6 +26,7 @@ import org.joda.time.DateTime;
 public class FragmentTime extends Fragment {
 
         TextView textView;
+        TextView textStatus;
         TextView textViewLecture;
         private Handler mHandler;
         FloatingActionButton floatingActionGoFragmentGift;
@@ -38,6 +40,26 @@ public class FragmentTime extends Fragment {
         @Override
         public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_time, container, false);
+
+
+            ImageView imageViewStatus = rootView.findViewById(R.id.imageViewStatus);
+            Bundle bundle = this.getArguments();
+            if (bundle != null) {
+                boolean i = bundle.getBoolean("key", false);
+                textStatus = rootView.findViewById(R.id.textStatus);
+                if(i){
+                    textStatus.setText("Статус: На работе");
+                    imageViewStatus.setImageResource(R.drawable.point_green);
+                }else{
+                    textStatus.setText("Статус: Ушёл с работы");
+                    imageViewStatus.setImageResource(R.drawable.point_red);
+                }
+
+            }
+
+
+
+
 
             floatingActionGoFragmentGift = rootView.findViewById(R.id.floatingActionGoFragmentGift);
             floatingActionGoFragmentGift.setOnClickListener(new View.OnClickListener() {
@@ -57,7 +79,6 @@ public class FragmentTime extends Fragment {
 
             Typeface type = Typeface.createFromAsset(getActivity().getAssets(),"fonts/Aqum.ttf");
             textView.setTypeface(type);
-            textViewLecture.setTypeface(type);
 
             mHandler = new Handler() {
                 public void handleMessage(Message msg) {
@@ -134,25 +155,25 @@ public class FragmentTime extends Fragment {
             String StringTimeToLectureSec;
 
             if (timeToLectureHour < 10) {
-                StringTimeToLectureHour = "0" + timeToLectureHour + "ч. ";
+                StringTimeToLectureHour = "0" + timeToLectureHour + "ч. \n";
             } else {
-                StringTimeToLectureHour = timeToLectureHour + "ч. ";
+                StringTimeToLectureHour = timeToLectureHour + "ч. \n";
             }
             if (timeToLectureMin < 10) {
-                StringTimeToLectureMin = "0" + timeToLectureMin + "м. ";
+                StringTimeToLectureMin = "0" + timeToLectureMin + "м. \n";
             } else {
-                StringTimeToLectureMin = timeToLectureMin + "м. ";
+                StringTimeToLectureMin = timeToLectureMin + "м. \n";
             }
             if (timeToLectureSec < 10) {
-                StringTimeToLectureSec = "0" + timeToLectureSec + "с.";
+                StringTimeToLectureSec = "0" + timeToLectureSec + "с. \n";
             } else {
-                StringTimeToLectureSec = timeToLectureSec + "с.";
+                StringTimeToLectureSec = timeToLectureSec + "с. \n";
             }
 
-            if (StringTimeToLectureHour.equals("00ч. ") && StringTimeToLectureMin.equals("00м. ")) {
+            if (StringTimeToLectureHour.equals("00ч. \n") && StringTimeToLectureMin.equals("00м. \n")) {
                 textView.setText(StringTimeToLectureSec);
             } else {
-                if (StringTimeToLectureHour.equals("00ч. ")) {
+                if (StringTimeToLectureHour.equals("00ч. \n")) {
                     textView.setText(StringTimeToLectureMin + StringTimeToLectureSec);
                 } else {
                     textView.setText(StringTimeToLectureHour + StringTimeToLectureMin + StringTimeToLectureSec);

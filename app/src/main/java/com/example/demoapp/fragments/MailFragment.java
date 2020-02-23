@@ -128,7 +128,6 @@ public class MailFragment extends Fragment {
         };
 
         reference = FirebaseDatabase.getInstance().getReference().child("Chat");
-        reference.addChildEventListener(childEventListener);
     }
 
     public static MailFragment newInstance(String userID) {

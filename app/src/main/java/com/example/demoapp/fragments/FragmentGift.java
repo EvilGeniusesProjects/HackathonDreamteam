@@ -11,7 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.demoapp.R;
@@ -42,15 +42,16 @@ public class FragmentGift extends Fragment implements RecyclerViewAdapterGifts.I
 
 
             ArrayList<String> animalNames = new ArrayList<>();
-            animalNames.add("Horse");
-            animalNames.add("Cow");
-            animalNames.add("Camel");
-            animalNames.add("Sheep");
-            animalNames.add("Goat");
+            animalNames.add("1 Day");
+            animalNames.add("3 Day");
+            animalNames.add("5 Day");
+            animalNames.add("7 Day");
+            animalNames.add("14 Day");
+            animalNames.add("30 Day");
 
             // set up the RecyclerView
             RecyclerView recyclerView = rootView.findViewById(R.id.recyclerView);
-            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
             adapter = new RecyclerViewAdapterGifts(getContext(), animalNames);
             adapter.setClickListener(this);
             recyclerView.setAdapter(adapter);
