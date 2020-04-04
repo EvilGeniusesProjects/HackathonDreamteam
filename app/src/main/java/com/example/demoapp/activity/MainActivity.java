@@ -4,31 +4,23 @@ import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.nfc.NfcAdapter;
+import android.os.Bundle;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
 import com.example.demoapp.R;
 import com.example.demoapp.api.ShowFragmentListener;
-import com.example.demoapp.api.chat.Message;
 import com.example.demoapp.fragments.FragmentMail;
 import com.example.demoapp.fragments.FragmentNFC;
-import com.example.demoapp.fragments.FragmentOne;
 import com.example.demoapp.fragments.FragmentProfile;
 import com.example.demoapp.fragments.FragmentSearch;
 import com.example.demoapp.fragments.FragmentTime;
-import com.example.demoapp.fragments.FragmentTwo;
 import com.example.demoapp.fragments.MailFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements ShowFragmentListener{
 
@@ -88,30 +80,15 @@ public class MainActivity extends AppCompatActivity implements ShowFragmentListe
             }
 
                 if(nameString.equals("mail")){
-
                     Toast.makeText(this, "Подключение к чату", Toast.LENGTH_SHORT).show();
-
-                    FragmentOne fragmentOne = new FragmentOne();
-                    FragmentTwo fragmentTwo = new FragmentTwo();
-
                     if (!statusWork) {
                         statusWork = true;
-                        showFragment(fragmentOne);
+                        switchTo(MailFragment.getInstance("chat"));
                     } else {
                         statusWork = false;
-                        showFragment(fragmentTwo);
+                        switchTo(MailFragment.getInstance("chat2"));
                     }
-
-
-
-
-
                 }
-
-
-
-
-
         }
     }
 
@@ -127,20 +104,16 @@ public class MainActivity extends AppCompatActivity implements ShowFragmentListe
                     switchTo(new FragmentNFC());
                     break;
                 case R.id.nav_chat:
-                    switchTo(MailFragment.getInstance("chat"));
+                    switchTo(new FragmentMail());
                     nameString = "mail";
                     break;
                 case R.id.nav_time:
                     nameString = "time";
-
-
                     FragmentTime fragment = new FragmentTime();
                     Bundle bundle = new Bundle();
                     bundle.putBoolean("key", false);
                     fragment.setArguments(bundle);
                     switchTo(fragment);
-
-
                     break;
                 case R.id.nav_search:
                     nameString = "status";
