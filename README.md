@@ -8,4 +8,7 @@
 <img src="https://github.com/EvilGeniusesProjects/Resource/blob/master/HackathonDreamteam/window3.jpg" alt="drawing" width="250"/>
 <img src="https://github.com/EvilGeniusesProjects/Resource/blob/master/HackathonDreamteam/window4.jpg" alt="drawing" width="250"/>
 <img src="https://github.com/EvilGeniusesProjects/Resource/blob/master/HackathonDreamteam/window5.jpg" alt="drawing" width="250"/>
+  
+<img src="https://github.com/EvilGeniusesProjects/Resource/blob/master/HackathonDreamteam/window3frag.jpg" alt="drawing" width="250"/>
+<img src="https://github.com/EvilGeniusesProjects/Resource/blob/master/HackathonDreamteam/window5frag.jpg" alt="drawing" width="250"/>
 </p>
